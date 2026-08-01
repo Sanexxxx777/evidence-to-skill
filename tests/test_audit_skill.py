@@ -82,6 +82,19 @@ Read [lineage](references/lineage.md), inspect the authorized files, and report 
         self.assertEqual(result.returncode, 1)
         self.assertIn("MISSING_SKILL_MD", result.stdout)
 
+    def test_reference_cannot_escape_skill_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "sample-skill"
+            self.make_skill(root)
+            outside = Path(temporary) / "outside.md"
+            outside.write_text("# Outside\n", encoding="utf-8")
+            with (root / "SKILL.md").open("a", encoding="utf-8") as handle:
+                handle.write("\nRead [outside](../outside.md).\n")
+            result = self.run_audit(root)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("OUTSIDE_REFERENCE", result.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

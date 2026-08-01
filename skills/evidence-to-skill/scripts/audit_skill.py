@@ -199,7 +199,14 @@ def _validate_frontmatter(root: Path, findings: list[Finding]) -> None:
         target = match.group(1).split("#", 1)[0]
         if not target or "://" in target or target.startswith("#"):
             continue
-        candidate = root / target
+        candidate = (root / target).resolve()
+        try:
+            candidate.relative_to(root)
+        except ValueError:
+            findings.append(
+                Finding("SKILL.md", _line_number(text, match.start()), "OUTSIDE_REFERENCE")
+            )
+            continue
         if not candidate.exists():
             findings.append(
                 Finding("SKILL.md", _line_number(text, match.start()), "BROKEN_REFERENCE")

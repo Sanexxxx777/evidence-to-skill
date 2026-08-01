@@ -31,7 +31,7 @@ The result can also be a reference note, checklist, or rejection. Not every usef
 - Unlicensed material contributes ideas only, not copied code or prose.
 - The bundled auditor reports finding types and locations without printing suspected secret values.
 
-The auditor is intentionally small and dependency-free. It detects concrete patterns; it cannot prove that a skill is free from semantic prompt injection or subtle malicious behavior. Human review and scoped testing remain required.
+The auditor is intentionally small and dependency-free. It detects concrete patterns; it cannot prove that a skill is free from semantic prompt injection or subtle malicious behavior. To avoid matching its own signature definitions, it does not scan `scripts/audit_skill.py`; review that file as trusted code. Human review and scoped testing remain required.
 
 ## Repository layout
 
