@@ -68,11 +68,12 @@ Validate this project:
 
 ```bash
 python3 -m unittest discover -s tests -v
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py \
-  skills/evidence-to-skill
 python3 skills/evidence-to-skill/scripts/audit_skill.py \
   skills/evidence-to-skill
 ```
+
+If your agent toolchain ships a skill-format validator, run it against
+`skills/evidence-to-skill` as well.
 
 ## Lineage
 

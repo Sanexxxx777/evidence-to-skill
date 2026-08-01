@@ -18,8 +18,9 @@ Run before claiming the project is ready:
 
 ```bash
 python3 -m unittest discover -s tests -v
-python3 ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/evidence-to-skill
 python3 skills/evidence-to-skill/scripts/audit_skill.py skills/evidence-to-skill
 ```
+
+Also run the skill-format validator shipped with your agent toolchain, if one is available.
 
 Report failed, skipped, and unavailable checks explicitly.
