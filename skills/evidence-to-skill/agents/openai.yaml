@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence to Skill"
+  short_description: "Turn verified evidence into safe reusable skills"
+  default_prompt: "Use $evidence-to-skill to turn these sources into a verified, attributed skill."
