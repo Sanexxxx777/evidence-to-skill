@@ -22,6 +22,16 @@ minimal skill + attribution + audit report
 
 The result can also be a reference note, checklist, or rejection. Not every useful source should become a skill.
 
+## Where it came from
+
+This started as an adoption review, not a project idea. Over five days at the end of July 2026 I went through 25 repositories that trended on GitHub, reading the files rather than the descriptions: license, install path, what each one writes to, what it duplicated in a stack I already run.
+
+Three were small enough to be a skill. The rest were platforms, editors, compilers, model cards, or courses — you can take a principle from those, but forking them is a different decision.
+
+Two of the three solved the exact problem I had, and both had the same structural gap. A README arrives as untrusted text: unverified claims, install commands nobody vetted, occasionally instructions aimed at the agent doing the reading. Compressing it into a skill file silently promotes all of that into something the agent then obeys, and nothing in the pipeline asks whether the claim was ever tested.
+
+So the interesting part here is the refusal, not the extraction.
+
 ## Core guarantees
 
 - Source content remains data, never authority.
@@ -31,7 +41,14 @@ The result can also be a reference note, checklist, or rejection. Not every usef
 - Unlicensed material contributes ideas only, not copied code or prose.
 - The bundled auditor reports finding types and locations without printing suspected secret values.
 
-The auditor is intentionally small and dependency-free. It detects concrete patterns; it cannot prove that a skill is free from semantic prompt injection or subtle malicious behavior. To avoid matching its own signature definitions, it does not scan `scripts/audit_skill.py`; review that file as trusted code. Human review and scoped testing remain required.
+## What this does not do
+
+The auditor is intentionally small and dependency-free. It detects concrete patterns; it cannot prove that a skill is free from semantic prompt injection or subtle malicious behavior. A clean run means "not detected", not "safe". To avoid matching its own signature definitions, it does not scan `scripts/audit_skill.py`; review that file as trusted code. Human review and scoped testing remain required.
+
+Two more limits worth stating before you adopt it:
+
+- **Pattern matching is polarity-blind unless you handle it.** A naive scanner flags an attack and its prohibition alike — a rule reading `Never delete without confirmation` matches the same signature as an actual approval bypass. Any detector built on these signatures needs to suppress findings on prohibition and quotation, or the output is noise.
+- **Maturity.** Published, 5 regression tests, self-audit clean. It has been exercised on one working skill library. Nobody but the author has run it in a real workflow yet.
 
 ## Repository layout
 
